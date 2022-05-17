@@ -1,0 +1,62 @@
+
+--------------------------------------------------------------------------
+    HBV MUTATIONAL ANALYSIS v1.0 - RUN E1498 LOG         May-11-2022
+--------------------------------------------------------------------------
+
+--- INPUT ----------------------------------------------------------------
+
+The CSV file contained the following list of samples (and their genotypes if available):
+
+
+04_H210840558, 06_H210960111, 08_H210960115, 09_H210960116, 11_H210980165, 12_H211000372, 13_H211020124, 14_H211040231, 15_H211060153, 16_H211060189, 18_H211080670, 19_H210960134
+
+
+The following FASTA files were provided for the analysis of 
+XC amplicons:
+
+
+11_H210980165xc, 12_H211000372xc, 16_H211060189xc, 18_H211080670xc, 19_H210960134xc
+
+
+and 
+
+SP amplicons:
+
+
+04_H210840558sp, 06_H210960111sp, 08_H210960115sp, 09_H210960116sp, 11_H210980165sp, 12_H211000372sp, 13_H211020124sp, 14_H211040231sp, 15_H211060153sp, 16_H211060189sp, 18_H211080670sp, 19_H210960134sp
+
+
+--- OUTPUT ---------------------------------------------------------------
+
+The folowing samples were ANALYSED for 
+
+X REGION and PRECORE:
+
+
+11_H210980165, 12_H211000372, 16_H211060189, 18_H211080670, 19_H210960134 
+
+
+and 
+
+for SURFACE and POLYMERASE (RT domain):
+
+
+04_H210840558, 06_H210960111, 08_H210960115, 09_H210960116, 11_H210980165, 12_H211000372, 13_H211020124, 14_H211040231, 15_H211060153, 16_H211060189, 18_H211080670, 19_H210960134
+
+
+and the results have been recorded in /home/phe.gov.uk/juan.ledesma/EIO_VRD_Bioinformatician/BBVU/hbv_mutational_analysis/Testing - 2021 Sequencing Data/March/E1498/Results_E1498_hbvma_v1.0.xlsx. 
+
+
+
+<<< WARNING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+No record was found in the CSV file for the samples/sequences 
+
+
+
+so they were EXCLUDED from the analysis. 
+
+Check for potential typos, confirm that the sequences belong to the current run, 
+confirm the the tube number in the sequence ID uses the same notation as in the 
+csv file (i.e 01 is different to 1), etc...  
+

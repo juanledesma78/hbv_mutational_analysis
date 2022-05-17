@@ -1,0 +1,19 @@
+
+--------------------------------------------------------------------------
+    HBV MUTATIONAL ANALYSIS v1.0 - RUN E1522 ERROR LOG       May-11-2022
+--------------------------------------------------------------------------
+The following FASTA sequences were NOT LABELLED with xc or sp ,
+
+27_H211640772_spol, 5_H211600489_spol, 13_H211620585_spol, 28_H211640773_spol, 9_H211600808_spol, 21_H211640556_spol, 22_H211640557_spol, 4_H210760097_xcore, 47_H211680148_spol, 35_H211660804_spol, 19_H211640554_spol, 14_H211620587_spol, 39_H211660807_spol, 16_H211620822_spol, 6_H211600490_spol, 12_H211620584_spol, 23_H211640558_spol, 15_H211620821_spol, 20_H211640555_spol, 44_H211680146_xcore, 43_H211680145_xcore, 7_H211600491_spol, 44_H211680146_spol, 8_H211600492_spol, 34_H211660803_spol, 43_H211680145_spol, 26_H211640560_spol, 33_H211660366_spol, 11_H211620583_xcore, 14_H211620587_xcore, 36_H211660805_spol, 29_H211640833_spol, 32_H211660228_spol, 47_H211680148_xcore, 4_H210760097_spol, 30_H211660217_spol
+
+
+which is REQUIRED to identify the amplicons for x region/core
+or surface/polymerase, respectively, and perform the analysis. 
+
+
+Please correct the FASTA header of these sequences according to the convention: 
+        
+Tube_MolisNumberAmplicon (i.e. 01_H12345678sp)
+
+and start the analysis again. 
+

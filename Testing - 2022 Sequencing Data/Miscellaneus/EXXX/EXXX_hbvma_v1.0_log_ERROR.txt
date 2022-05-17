@@ -1,0 +1,19 @@
+
+--------------------------------------------------------------------------
+    HBV MUTATIONAL ANALYSIS v1.0 - RUN EXXX ERROR LOG       May-11-2022
+--------------------------------------------------------------------------
+The following FASTA sequences were NOT LABELLED with xc or sp 
+
+Contig_1, H102060709_spol.seq, H112060503_xcore.seq, 16_H210220257pol, H201160875core, Contig_1, Contig_1, 12_H16056060101xcore, 11_H210220261pol, 18_H200680470pol, 26-RS15004914, H103220346_spol.seq
+
+
+,which is REQUIRED to identify the amplicons for x region/core
+or surface/polymerase, respectively, and perform the analysis. 
+
+
+Please correct the FASTA header of these sequences according to the convention: 
+        
+Tube_MolisNumberAmplicon (i.e. 01_H12345678sp)
+
+and start the analysis again. 
+

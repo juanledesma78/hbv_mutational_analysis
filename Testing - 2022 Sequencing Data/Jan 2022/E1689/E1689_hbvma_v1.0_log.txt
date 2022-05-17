@@ -1,0 +1,62 @@
+
+--------------------------------------------------------------------------
+    HBV MUTATIONAL ANALYSIS v1.0 - RUN E1689 LOG         May-11-2022
+--------------------------------------------------------------------------
+
+--- INPUT ----------------------------------------------------------------
+
+The CSV file contained the following list of samples (and their genotypes if available):
+
+
+05_H214740168, 06_H220261242, 07_H220280100, 08_H220320142, 09_H220360092, 11_H220360094, 13_H220380592, 15_H220400085, 16_H220420123, 17_NEG0002, 18_H220420124, 20_H220420126, 21_H220420127, 22_RS22000040
+
+
+The following FASTA files were provided for the analysis of 
+XC amplicons:
+
+
+05_H214740168xc, 07_H220280100xc, 08_H220320142xc, 16_H220420123xc, 17_Negxc, 18_H220420124xc, 20_H220420126xc, 21_H220420127xc, 22_RS22000040xc
+
+
+and 
+
+SP amplicons:
+
+
+06_H220261242sp, 07_H220280100sp, 11_H220360094sp, 13_H220380592sp, 15_H220400085sp, 18_H220420124sp, 21_H220420127sp, 22_RS22000040sp
+
+
+--- OUTPUT ---------------------------------------------------------------
+
+The folowing samples were ANALYSED for 
+
+X REGION and PRECORE:
+
+
+05_H214740168, 07_H220280100, 08_H220320142, 16_H220420123, 18_H220420124, 20_H220420126, 21_H220420127, 22_RS22000040 
+
+
+and 
+
+for SURFACE and POLYMERASE (RT domain):
+
+
+06_H220261242, 07_H220280100, 11_H220360094, 13_H220380592, 15_H220400085, 18_H220420124, 21_H220420127, 22_RS22000040
+
+
+and the results have been recorded in /home/phe.gov.uk/juan.ledesma/EIO_VRD_Bioinformatician/BBVU/hbv_mutational_analysis/Testing - 2022 Sequencing Data/Jan 2022/E1689/Results_E1689_hbvma_v1.0.xlsx. 
+
+
+
+<<< WARNING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+No record was found in the CSV file for the samples/sequences 
+
+17_Neg
+
+so they were EXCLUDED from the analysis. 
+
+Check for potential typos, confirm that the sequences belong to the current run, 
+confirm the the tube number in the sequence ID uses the same notation as in the 
+csv file (i.e 01 is different to 1), etc...  
+

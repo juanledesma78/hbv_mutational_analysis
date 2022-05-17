@@ -1,0 +1,62 @@
+
+--------------------------------------------------------------------------
+    HBV MUTATIONAL ANALYSIS v1.0 - RUN E1732 LOG         May-11-2022
+--------------------------------------------------------------------------
+
+--- INPUT ----------------------------------------------------------------
+
+The CSV file contained the following list of samples (and their genotypes if available):
+
+
+05_H221321285, 06_H221341174, 07_H221360134, 09_H221362686, 12_H221380139, 13_H221380148, 14_H221380569, 15_H221380572, 17_NEG0002, 18_H221400112, 19_H221400113, 20_H221401244, 21_H221401247, 22_H221420051, 23_H221420052, 25_H221421232, 26_H221440103, 28_H221440881, 30_NEG0002
+
+
+The following FASTA files were provided for the analysis of 
+XC amplicons:
+
+
+05_H221321285xc, 06_H221341174xc, 09_H221362686xc, 15_H221380572xc, 17_Negxc, 20_H221401244xc, 21_H221401247xc, 22_H221420051xc, 23_H221420052xc, 25_H221421232xc, 26_H221440103xc, 30_Negxc
+
+
+and 
+
+SP amplicons:
+
+
+06_H221341174sp, 07_H221360134sp, 09_H221362686sp, 12_H221380139sp, 13_H221380148sp, 14_H221380569sp, 15_H221380572sp, 17_Neg_sp, 18_H221400112sp, 19_H221400113sp, 20_H221401244sp, 21_H221401247sp, 23_H221420052sp, 25_H221421232sp, 28_H221440881sp
+
+
+--- OUTPUT ---------------------------------------------------------------
+
+The folowing samples were ANALYSED for 
+
+X REGION and PRECORE:
+
+
+05_H221321285, 06_H221341174, 09_H221362686, 15_H221380572, 20_H221401244, 21_H221401247, 22_H221420051, 23_H221420052, 25_H221421232, 26_H221440103 
+
+
+and 
+
+for SURFACE and POLYMERASE (RT domain):
+
+
+06_H221341174, 07_H221360134, 09_H221362686, 12_H221380139, 13_H221380148, 14_H221380569, 15_H221380572, 18_H221400112, 19_H221400113, 20_H221401244, 21_H221401247, 23_H221420052, 25_H221421232, 28_H221440881
+
+
+and the results have been recorded in /home/phe.gov.uk/juan.ledesma/EIO_VRD_Bioinformatician/BBVU/hbv_mutational_analysis/Testing - 2022 Sequencing Data/April 2022/E1732/Results_E1732_hbvma_v1.0.xlsx. 
+
+
+
+<<< WARNING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+No record was found in the CSV file for the samples/sequences 
+
+17_Neg_, 17_Neg, 30_Neg
+
+so they were EXCLUDED from the analysis. 
+
+Check for potential typos, confirm that the sequences belong to the current run, 
+confirm the the tube number in the sequence ID uses the same notation as in the 
+csv file (i.e 01 is different to 1), etc...  
+

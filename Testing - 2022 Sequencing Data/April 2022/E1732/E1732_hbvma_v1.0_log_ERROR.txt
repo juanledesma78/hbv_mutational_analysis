@@ -1,0 +1,19 @@
+
+--------------------------------------------------------------------------
+    HBV MUTATIONAL ANALYSIS v1.0 - RUN E1732 ERROR LOG       May-11-2022
+--------------------------------------------------------------------------
+The following FASTA sequences were NOT LABELLED with xc or sp ,
+
+12_H221380139spol, 20_H221401244spol, 21_H221401247spol, 09_H221362686spol, 28_H221440881spol, 06_H221341174spol, 19_H221400113spol, 25_H221421232spol, 14_H221380569spol, 23_H221420052spol, 17_Neg, 15_H221380572spol, 13_H221380148spol, 18_H221400112spol, 07_H221360134spol
+
+
+which is REQUIRED to identify the amplicons for x region/core
+or surface/polymerase, respectively, and perform the analysis. 
+
+
+Please correct the FASTA header of these sequences according to the convention: 
+        
+Tube_MolisNumberAmplicon (i.e. 01_H12345678sp)
+
+and start the analysis again. 
+

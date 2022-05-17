@@ -1,0 +1,62 @@
+
+--------------------------------------------------------------------------
+    HBV MUTATIONAL ANALYSIS v1.0 - RUN E1654 LOG         May-11-2022
+--------------------------------------------------------------------------
+
+--- INPUT ----------------------------------------------------------------
+
+The CSV file contained the following list of samples (and their genotypes if available):
+
+
+04_H213240946, 05_H213281573, 06_H213681440, 07_H213681447, 08_H214261530, 11_H214281057, 12_H214281058, 13_H214281245, 14_H214341589, 15_H214521289, 18_H214541088, 20_H214541090, 21_H214541091, 22_H214541092, 25_H214541094, 27_H214541096, 28_H214561052, 29_H214561053, 32_H214580942, 33_H214580943, 34_H214580944, 35_H214580945, 36_H214580946, 37_H214580947, 38_H214580948, 41_H214600721, 42_H214600722, 43_H214600723, 46_H214600725, 47_H214600726, 48_H214600727
+
+
+The following FASTA files were provided for the analysis of 
+XC amplicons:
+
+
+
+
+
+and 
+
+SP amplicons:
+
+
+12_H214281058sp, 13_H214281245sp, 14_H214341589sp, 18_H214541088sp, 20_H214541090sp, 21_H214541091sp, 22_H214541092sp, 25_H214541094sp, 27_H214541096sp, 28_H214561052sp, 29_H214561053sp, 32_H214580942sp, 33_H214580943sp, 34_H214580944sp, 36_H214580946sp, 37_H214580947sp, 38_H214580948sp, 41_H214600721sp, 42_H214600722sp, 43_H214600723sp, 46_H214600725sp, 47_H214600726sp, 48_H214600727sp, 4_H213240946sp, 5_H213281573sp, 6_H213681440sp, 7_H213681447sp, 8_H214261530sp
+
+
+--- OUTPUT ---------------------------------------------------------------
+
+The folowing samples were ANALYSED for 
+
+X REGION and PRECORE:
+
+
+ 
+
+
+and 
+
+for SURFACE and POLYMERASE (RT domain):
+
+
+12_H214281058, 13_H214281245, 14_H214341589, 18_H214541088, 20_H214541090, 21_H214541091, 22_H214541092, 25_H214541094, 27_H214541096, 28_H214561052, 29_H214561053, 32_H214580942, 33_H214580943, 34_H214580944, 36_H214580946, 37_H214580947, 38_H214580948, 41_H214600721, 42_H214600722, 43_H214600723, 46_H214600725, 47_H214600726, 48_H214600727
+
+
+and the results have been recorded in /home/phe.gov.uk/juan.ledesma/EIO_VRD_Bioinformatician/BBVU/hbv_mutational_analysis/Testing - 2021 Sequencing Data/November/E1654/Results_E1654_hbvma_v1.0.xlsx. 
+
+
+
+<<< WARNING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+No record was found in the CSV file for the samples/sequences 
+
+4_H213240946, 5_H213281573, 6_H213681440, 7_H213681447, 8_H214261530
+
+so they were EXCLUDED from the analysis. 
+
+Check for potential typos, confirm that the sequences belong to the current run, 
+confirm the the tube number in the sequence ID uses the same notation as in the 
+csv file (i.e 01 is different to 1), etc...  
+

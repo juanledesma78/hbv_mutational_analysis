@@ -1,0 +1,62 @@
+
+--------------------------------------------------------------------------
+    HBV MUTATIONAL ANALYSIS v1.0 - RUN E1698 LOG         May-11-2022
+--------------------------------------------------------------------------
+
+--- INPUT ----------------------------------------------------------------
+
+The CSV file contained the following list of samples (and their genotypes if available):
+
+
+04_H220360092, 05_H220560094, 06_H220561201, 08_H220580131, 09_H220600442, 11_H220620210, 12_H220620224, 13_H220620235, 14_H220620978, 15_H220640100, 16_H220640617, 18_H220640618, 19_H220640912, 20_H220141654
+
+
+The following FASTA files were provided for the analysis of 
+XC amplicons:
+
+
+12_H220620224xc, 14_H220620978xc, 20_H220141654xc
+
+
+and 
+
+SP amplicons:
+
+
+04_H220360092sp, 05_H220560094sp, 08_H220580131sp, 09_H220600442sp, 11_H220620210sp, 12_H220620224sp, 13_H220620235sp, 14_H220620978sp, 15_H220640100sp, 16_H220640617sp, 18_H220640618sp, 19_H220640912sp
+
+
+--- OUTPUT ---------------------------------------------------------------
+
+The folowing samples were ANALYSED for 
+
+X REGION and PRECORE:
+
+
+12_H220620224, 14_H220620978, 20_H220141654 
+
+
+and 
+
+for SURFACE and POLYMERASE (RT domain):
+
+
+04_H220360092, 05_H220560094, 08_H220580131, 09_H220600442, 11_H220620210, 12_H220620224, 13_H220620235, 14_H220620978, 15_H220640100, 16_H220640617, 18_H220640618, 19_H220640912
+
+
+and the results have been recorded in /home/phe.gov.uk/juan.ledesma/EIO_VRD_Bioinformatician/BBVU/hbv_mutational_analysis/Testing - 2022 Sequencing Data/Feb 2022/E1698/Results_E1698_hbvma_v1.0.xlsx. 
+
+
+
+<<< WARNING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+No record was found in the CSV file for the samples/sequences 
+
+
+
+so they were EXCLUDED from the analysis. 
+
+Check for potential typos, confirm that the sequences belong to the current run, 
+confirm the the tube number in the sequence ID uses the same notation as in the 
+csv file (i.e 01 is different to 1), etc...  
+

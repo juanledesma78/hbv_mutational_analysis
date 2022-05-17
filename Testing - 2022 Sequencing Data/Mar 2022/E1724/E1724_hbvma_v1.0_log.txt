@@ -1,0 +1,62 @@
+
+--------------------------------------------------------------------------
+    HBV MUTATIONAL ANALYSIS v1.0 - RUN E1724 LOG         May-11-2022
+--------------------------------------------------------------------------
+
+--- INPUT ----------------------------------------------------------------
+
+The CSV file contained the following list of samples (and their genotypes if available):
+
+
+07_H221040463, 09_H221140613, 11_H221160999, 12_H221180022, 13_H221180024, 14_H221220001, 15_H221240056, 16_H220920376, 16_H221240929, 20_H220680717
+
+
+The following FASTA files were provided for the analysis of 
+XC amplicons:
+
+
+09_H221140613xc, 11_H221160999xc, 12_H221180022xc, 13_H221180024xc, 20_H220680717xc
+
+
+and 
+
+SP amplicons:
+
+
+07_H221040463sp, 09_H221140613sp, 12_H221180022sp, 13_H221180024sp, 14_H221220001sp, 15_H221240056sp, 16_H221240929sp
+
+
+--- OUTPUT ---------------------------------------------------------------
+
+The folowing samples were ANALYSED for 
+
+X REGION and PRECORE:
+
+
+09_H221140613, 11_H221160999, 12_H221180022, 13_H221180024, 20_H220680717 
+
+
+and 
+
+for SURFACE and POLYMERASE (RT domain):
+
+
+07_H221040463, 09_H221140613, 12_H221180022, 13_H221180024, 14_H221220001, 15_H221240056, 16_H221240929
+
+
+and the results have been recorded in /home/phe.gov.uk/juan.ledesma/EIO_VRD_Bioinformatician/BBVU/hbv_mutational_analysis/Testing - 2022 Sequencing Data/Mar 2022/E1724/Results_E1724_hbvma_v1.0.xlsx. 
+
+
+
+<<< WARNING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+No record was found in the CSV file for the samples/sequences 
+
+
+
+so they were EXCLUDED from the analysis. 
+
+Check for potential typos, confirm that the sequences belong to the current run, 
+confirm the the tube number in the sequence ID uses the same notation as in the 
+csv file (i.e 01 is different to 1), etc...  
+

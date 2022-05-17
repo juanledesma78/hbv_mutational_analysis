@@ -1,0 +1,62 @@
+
+--------------------------------------------------------------------------
+    HBV MUTATIONAL ANALYSIS v1.0 - RUN misc LOG         May-11-2022
+--------------------------------------------------------------------------
+
+--- INPUT ----------------------------------------------------------------
+
+The CSV file contained the following list of samples (and their genotypes if available):
+
+
+04_H214460915-frameshift, 05_H214460979-DEL-R18-INS-R60-DEL-L108-S109-INS-P140, 11_H214520217-RANDOM, 13_H214541105-HEADER-LENGTH-LONGER-THAN-31-CHARACTERS, G_AF160501, H_AY090457, I_AF241411, J_AB486012
+
+
+The following FASTA files were provided for the analysis of 
+XC amplicons:
+
+
+13_H214541105-HEADER-LENGTH-LONGER-THAN-31-CHARACTERSxc, 78_H214541105-NOT-IN-CSVxc
+
+
+and 
+
+SP amplicons:
+
+
+04_H214460915-frameshiftsp, 05_H214460979-DEL-R18-INS-R60-DEL-L108-S109-INS-P140sp, 11_H214520217-RANDOMsp, 39_H214640176-NOT-IN-CSVsp, G_AF160501sp, H_AY090457sp, I_AF241411sp, J_AB486012sp
+
+
+--- OUTPUT ---------------------------------------------------------------
+
+The folowing samples were ANALYSED for 
+
+X REGION and PRECORE:
+
+
+13_H214541105-HEADER-LENGTH-LONGER-THAN-31-CHARACTERS 
+
+
+and 
+
+for SURFACE and POLYMERASE (RT domain):
+
+
+04_H214460915-frameshift, 05_H214460979-DEL-R18-INS-R60-DEL-L108-S109-INS-P140, 11_H214520217-RANDOM, G_AF160501, H_AY090457, I_AF241411, J_AB486012
+
+
+and the results have been recorded in /home/phe.gov.uk/juan.ledesma/EIO_VRD_Bioinformatician/BBVU/hbv_mutational_analysis/Testing - 2022 Sequencing Data/Miscellaneus/misc/Results_misc_hbvma_v1.0.xlsx. 
+
+
+
+<<< WARNING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+No record was found in the CSV file for the samples/sequences 
+
+39_H214640176-NOT-IN-CSV, 78_H214541105-NOT-IN-CSV
+
+so they were EXCLUDED from the analysis. 
+
+Check for potential typos, confirm that the sequences belong to the current run, 
+confirm the the tube number in the sequence ID uses the same notation as in the 
+csv file (i.e 01 is different to 1), etc...  
+

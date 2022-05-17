@@ -1,0 +1,19 @@
+
+--------------------------------------------------------------------------
+    HBV MUTATIONAL ANALYSIS v1.0 - RUN E1596_partial_sp ERROR LOG       May-11-2022
+--------------------------------------------------------------------------
+The following FASTA sequences were NOT LABELLED with xc or sp ,
+
+16_H213400871, 11_H213361287., 26_H213441502, 33_H213460936, 04_H212882090, 36_H213460939, 35_H213460938, 22_H213421497, 19_H213400873, 08_H213361285, 14_H213400869, 47_H213481259, 27_H213441503, 37_H213460940, 28_H213441723, 43_H213460945, 06_H213360931, 40_H213460942, 32_H213441726, 07_H213360932, 25_H213441501, 39_H213460941, 18_H213400872, 41_H213460943, 15_H213400870, 13_H213400868
+
+
+which is REQUIRED to identify the amplicons for x region/core
+or surface/polymerase, respectively, and perform the analysis. 
+
+
+Please correct the FASTA header of these sequences according to the convention: 
+        
+Tube_MolisNumberAmplicon (i.e. 01_H12345678sp)
+
+and start the analysis again. 
+

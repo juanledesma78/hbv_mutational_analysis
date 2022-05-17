@@ -1,0 +1,62 @@
+
+--------------------------------------------------------------------------
+    HBV MUTATIONAL ANALYSIS v1.0 - RUN E1638 LOG         May-11-2022
+--------------------------------------------------------------------------
+
+--- INPUT ----------------------------------------------------------------
+
+The CSV file contained the following list of samples (and their genotypes if available):
+
+
+05_H213041607, 06_H214260304, 07_H214281079, 08_H214300064, 09_H214300084, 11_H214300085, 12_H214300086, 13_H214300087, 14_H214300090, 15_H214340225, 16_H214340243, 18_H214340244, 19_H214340256
+
+
+The following FASTA files were provided for the analysis of 
+XC amplicons:
+
+
+05_H213041607xc, 07_H214281079xc, 08_H214300064xc, 09_H214300089xc, 11_H214300085xc, 12_H214300086xc, 13_H214300087xc
+
+
+and 
+
+SP amplicons:
+
+
+06_H214260304sp, 07_H214281079sp, 09_H214300084sp, 12_H214300086sp, 13_H214300087sp, 14_H214300090sp, 15_H214340225sp, 16_H214340243sp, 18_H214340244sp
+
+
+--- OUTPUT ---------------------------------------------------------------
+
+The folowing samples were ANALYSED for 
+
+X REGION and PRECORE:
+
+
+05_H213041607, 07_H214281079, 08_H214300064, 11_H214300085, 12_H214300086, 13_H214300087 
+
+
+and 
+
+for SURFACE and POLYMERASE (RT domain):
+
+
+06_H214260304, 07_H214281079, 09_H214300084, 12_H214300086, 13_H214300087, 14_H214300090, 15_H214340225, 16_H214340243, 18_H214340244
+
+
+and the results have been recorded in /home/phe.gov.uk/juan.ledesma/EIO_VRD_Bioinformatician/BBVU/hbv_mutational_analysis/Testing - 2021 Sequencing Data/October/E1638/Results_E1638_hbvma_v1.0.xlsx. 
+
+
+
+<<< WARNING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+No record was found in the CSV file for the samples/sequences 
+
+09_H214300089
+
+so they were EXCLUDED from the analysis. 
+
+Check for potential typos, confirm that the sequences belong to the current run, 
+confirm the the tube number in the sequence ID uses the same notation as in the 
+csv file (i.e 01 is different to 1), etc...  
+

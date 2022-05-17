@@ -1,0 +1,62 @@
+
+--------------------------------------------------------------------------
+    HBV MUTATIONAL ANALYSIS v1.0 - RUN E1729 LOG         May-11-2022
+--------------------------------------------------------------------------
+
+--- INPUT ----------------------------------------------------------------
+
+The CSV file contained the following list of samples (and their genotypes if available):
+
+
+04_H221000080, 05_H221040453, 07_H221060896, 08_H221060897, 09_H221060898, 11_H221060899, 12_H221060900, 14_H221080562, 15_H221080563, 16_H221080565, 18_H221080573, 19_H221080645, 20_H221100010, 21_H221120069, 22_H221120625, 23_H221140076
+
+
+The following FASTA files were provided for the analysis of 
+XC amplicons:
+
+
+09_H221060898xc, 11_H221060899xc, 12_H221060900xc, 15_H221080563xc, 20_H221100010xc, 22_H221120625xc
+
+
+and 
+
+SP amplicons:
+
+
+04_H221000080sp, 05_H221040453sp, 07_H221060896sp, 08_H221060897sp, 09_H221060898sp, 11_H221060899sp, 12_H221060900sp, 14_H221080562sp, 15_H221080563sp, 16_H221080565sp, 18_H221080573sp, 19_H221080654sp, 21_H221120069sp, 22_H221120625sp, 23_H221140076sp
+
+
+--- OUTPUT ---------------------------------------------------------------
+
+The folowing samples were ANALYSED for 
+
+X REGION and PRECORE:
+
+
+09_H221060898, 11_H221060899, 12_H221060900, 15_H221080563, 20_H221100010, 22_H221120625 
+
+
+and 
+
+for SURFACE and POLYMERASE (RT domain):
+
+
+04_H221000080, 05_H221040453, 07_H221060896, 08_H221060897, 09_H221060898, 11_H221060899, 12_H221060900, 14_H221080562, 15_H221080563, 16_H221080565, 18_H221080573, 21_H221120069, 22_H221120625, 23_H221140076
+
+
+and the results have been recorded in /home/phe.gov.uk/juan.ledesma/EIO_VRD_Bioinformatician/BBVU/hbv_mutational_analysis/Testing - 2022 Sequencing Data/Mar 2022/E1729/Results_E1729_hbvma_v1.0.xlsx. 
+
+
+
+<<< WARNING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+No record was found in the CSV file for the samples/sequences 
+
+19_H221080654
+
+so they were EXCLUDED from the analysis. 
+
+Check for potential typos, confirm that the sequences belong to the current run, 
+confirm the the tube number in the sequence ID uses the same notation as in the 
+csv file (i.e 01 is different to 1), etc...  
+
