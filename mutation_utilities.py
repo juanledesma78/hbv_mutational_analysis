@@ -1,43 +1,52 @@
 __version__ = '1.0'
-__date__ = '24/02/2022'
+__date__ = '11/05/2022'
 __author__ = 'Juan Ledesma'
 
+import re
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
-from Bio import SeqIO
-from Bio import AlignIO
+from Bio import SeqIO, AlignIO, pairwise2
 from Bio.Align.Applications import ClustalwCommandline
 from Bio.Align import MultipleSeqAlignment
-from Bio import pairwise2
 from Bio.Data import IUPACData
 from itertools import product
-import os
-import re
-
+from pathlib import Path
+from datetime import date
 
 def trimming_alignment(BioAln, start_position, end):
     """It takes a Biopython alignment and returns a new alignment trimmed to
-    the given starting and ending positions. Gaps (-) introduced in the refseq 
-    to get it aligned to the query sequence (insertions) can compromise the 
-    final region to trimm. Therefore they are not considered in the numbering
-    when trimming is done (if str(BioAln[0].seq[pos]) != '-')"""
+    the given starting and ending positions. 
+    Gaps (-) introduced in the refseq when aligning query sequences with 
+    insertions can compromise the final region to trimm. Therefore they are 
+    not considered in the numbering when trimming is carried out 
+    (if str(BioAln[0].seq[pos]) != '-').
+    The start positions already includes -1 (python numbering)"""
 
-    # Precore (Bioaln, 1813, 1900)
-    position = start_position # 1813 
-    stop_position = 0
-    for pos in range(position, len(BioAln[0].seq),1): 
-        if position < end:# 1900:
+    initial_pos_ungapped = 0
+    final_pos_ungapped = 0
+    first_pos = 0
+    last_pos = 0
+    for pos in range(len(BioAln[0].seq)): 
+        if initial_pos_ungapped <= (start_position): 
             if str(BioAln[0].seq[pos]) != '-':
-                position += 1
-                stop_position = pos +1 
-    aln = BioAln[:, start_position : stop_position]
-    return aln 
+                first_pos = pos
+                initial_pos_ungapped += 1
+        if final_pos_ungapped <= end:
+            if str(BioAln[0].seq[pos]) != '-':
+                last_pos = pos
+                final_pos_ungapped +=1
+    aln = BioAln[:, first_pos : last_pos]
+    return aln
 
 
 def first_aa_nt_in_partial_fragment(aln): 
-    """Finds the first nucleotide coding for a amino acid. This is particulary 
-    useful for X region, as the amplicon only provide information for the end
-    of the gene"""
+    """Finds the first nucleotide coding for a amino acid in a sequence. 
+    The amplicon covering XC only provides partial information for the end of
+    the gene X. 
+    Althought the SP amplicons are expected to provide information from the 
+    initial nucleotide of surface and polymerase genes, therea are chances when
+    only partial fragments for these regions are available.
+    The function is applied to all the amplicons"""
 
     if aln: 
         nucleotide = 0
@@ -50,26 +59,28 @@ def first_aa_nt_in_partial_fragment(aln):
             if (nt_pos)%3 == 0:
                 nucleotide = nt_pos
                 aa = nt_pos/3
-            if (nt_pos+1)%3 == 0:
+            if (nt_pos + 1)%3 == 0:
                 nucleotide = nt_pos +1
-                aa = (nt_pos+1)/3 
+                aa = (nt_pos + 1)/3 
             if (nt_pos+2)%3 == 0:
                 nucleotide = nt_pos + 2
-                aa = (nt_pos+2)/3  
-    return int(aa), int(nucleotide) # the numbering is pythonic, not real one
+                aa = (nt_pos + 2)/3  
+    return int(aa), int(nucleotide) # pythonic numbering, not the real one
 
 
-def frameshift_check(aln, first_codon = 0 ): 
-    """ It takes a Biopython alignment and analyses the sequences for frameshifts.
-     It translates the query nt sequence at three diferent frames, aligns their
-     amino acids to aa reference sequence and finds out if the first one (expected 
-     to be in frame after trimming) has the best score. By default it would start
-     from the first codon, except for X region"""
+def frameshift_check(aln, first_codon): 
+    """ It takes a Biopython alignment and analyses the sequences for 
+    frameshifts. It translates the query nucloetide sequence at three 
+    diferent frames, aligns their amino acids to reference sequence 
+    and finds out if the first sequences (expected to be in frame after
+    trimming) has the best score."""
 
     frame_analysis = []
-    aaRefSeq = aln[0].seq.ungap().translate() # invariable, it should not have gaps, in-frame...
+    # invariable, it should not have gaps, in-frame...
+    aaRefSeq = aln[0].seq.ungap().translate() 
     ntQueySeq = SeqRecord(seq=aln[1][first_codon:].seq.ungap(), 
-                                    id=aln[1].id, name ='')
+                          id=aln[1].id, 
+                          name ='')
     scores =[]
     for startpos in range(3):
         #BiopythonWarning: Partial codon, len(sequence) not a multiple of three.
@@ -89,15 +100,15 @@ def frameshift_check(aln, first_codon = 0 ):
     return frame_analysis
 
 
-def codon_alignment(aln, region, path_to_alns, path_to_tmp, first_nt = 0): 
+def codon_alignment(aln, region, path_to_alns, 
+                    path_to_tmp, first_nt): 
     """It takes a Biopython alignment and creates new SeqRecords for amino
     acids and nucleotides using the original record.seq after removing the 
-    gaps. As Clustal doesn't deal with ambiguous amino acids when doing 
+    gaps. 
+    As Clustal doesn't deal with ambiguous amino acids when doing 
     protein alignments, the characters BZJUO* are replaced with X. The 
     aa alignment is the used to sort the nucleotides according to the 
-    positions of the gaps and amino acids. By default it would start
-    from the first first nucleotide coding for an aa, except for X region
-    """
+    positions of the gaps and amino acids."""
 
     #SeqRecord(seq=Seq(), id='', name ='')
     aa_SeqRecords = [] # aa SeqRecord list
@@ -111,7 +122,8 @@ def codon_alignment(aln, region, path_to_alns, path_to_tmp, first_nt = 0):
         else:
             if first_nt == 0:
                 aa_record = re.sub(r'[B|Z|J|U|O|*]','X', 
-                                    str(record[first_nt:].seq.ungap().translate()))
+                                    str(record[first_nt:].seq.ungap().
+                                                        translate()))
                 aa = SeqRecord(seq= Seq(aa_record), id = record.id)
                 nt = SeqRecord(seq= record.seq.ungap(), id = record.id)
             else:
@@ -125,23 +137,26 @@ def codon_alignment(aln, region, path_to_alns, path_to_tmp, first_nt = 0):
         aa_SeqRecords.append(aa)
         nt_SeqRecords.append(nt)
 
-    # the sequences must be same length for the alignment by clustal
-    # this may produce a tail of --- in both sequences in the final alignment, 
-    # not an issue for the mutation scanning
+    # the sequences must be same length for the alignment by clustal. This may 
+    # produce a tail of --- in both sequences in the final alignment, not an 
+    # issue for the mutation scanning
+
     if len(aa_SeqRecords[0].seq) < len(aa_SeqRecords[1].seq):
         gap_needed = (len(aa_SeqRecords[1].seq)-len(aa_SeqRecords[0].seq))
         aa_SeqRecords[0].seq = aa_SeqRecords[0].seq + '-'*gap_needed
+
     if len(aa_SeqRecords[0].seq) > len(aa_SeqRecords[1].seq):
         gap_needed = (len(aa_SeqRecords[0].seq)-len(aa_SeqRecords[1].seq))
         aa_SeqRecords[1].seq = aa_SeqRecords[1].seq  + '-'*gap_needed
 
-    fasta_aa_file = os.path.join(path_to_tmp, f'{aln[1].id}_{region}_aa.fas')
+    fasta_aa_file = Path(path_to_tmp).joinpath(f'{aln[1].id}_{region}_aa.fas') 
     SeqIO.write(aa_SeqRecords, fasta_aa_file,'fasta')
+    fasta_aa_file = str(fasta_aa_file)
     
-    clustalw_cline = ClustalwCommandline('clustalw2', infile=fasta_aa_file)
+    clustalw_cline = ClustalwCommandline('clustalw2', infile= fasta_aa_file)
     stdout, stderr = clustalw_cline()
     aligned_aa_file = fasta_aa_file.replace('.fas','.aln')
-    aa_aln = AlignIO.read(aligned_aa_file,'clustal')
+    aa_aln = AlignIO.read(Path(aligned_aa_file),'clustal')
     
     ntAlignRecord = []
     for a in range(len(aa_aln)):
@@ -156,14 +171,16 @@ def codon_alignment(aln, region, path_to_alns, path_to_tmp, first_nt = 0):
                 aligned_nt.append(codon)
                 pos+=3      
         ntAlignRecord.append(SeqRecord(seq=Seq(''.join(aligned_nt)), 
-                                                id= nt_SeqRecords[a].id, 
-                                                description='') )
+                                       id= nt_SeqRecords[a].id, 
+                                       description='')
+                            )
     
     alignment = MultipleSeqAlignment(ntAlignRecord)
-    output_name = os.path.join(path_to_alns, f'{nt_SeqRecords[1].id}_{region}.fas')
+    output_name = Path(path_to_alns).joinpath(
+                        f'{nt_SeqRecords[1].id}_{region}.fas')
     AlignIO.write(alignment, output_name,'fasta')
-    return AlignIO.read(output_name,'fasta')
 
+    return AlignIO.read(output_name,'fasta')
 
 
 def translation_of_codons(AlnRecord): 
@@ -176,7 +193,7 @@ def translation_of_codons(AlnRecord):
     codons = [] # list of tuples, [('ATG', 'ATG'),
     aas = []
     pos = 0
-    for n in range(0,len(Ref.seq),3):
+    for n in range(0, len(Ref.seq), 3):
         pos += 1
         cdref = str(Ref.seq[n:n+3])
         aaref = str(Ref.seq[n:n+3].translate())
@@ -194,18 +211,17 @@ def translation_of_codons(AlnRecord):
     return codons, aas
 
 
-
-def refseq_numbering(codons, aas, starting_aa=0):
+def refseq_numbering(codons, aas, starting_aa= 0):
     """ Takes 2 lists of tuples: a first one with the codons for the refseq 
-    and the query and a second one with the amino acids for each sequence
-    and the positions. It returns a list of insertions in the query sequence 
-    and two lists of tuples with codons, amino acids and positions keeping 
-    the refseq numbering"""
+    and the query and a second one with the amino acids for each sequence and
+    the positions. It returns a list of insertions in the query sequence and 
+    two lists of tuples with codons, amino acids and positions keeping the 
+    refseq numbering"""
 
     codonsNumb = []
     aasNumb = []    
     insertions =[]
-    posNumb = starting_aa +1
+    posNumb = starting_aa + 1
     # aas[n][0], aas[n][1], aas[n][2]) -> aaref, aaquery, position
     for n in range(starting_aa, len(aas)):
     # insertions 
@@ -214,9 +230,9 @@ def refseq_numbering(codons, aas, starting_aa=0):
         else:
             codonsNumb.append((codons[n][0], codons[n][1]))
             aasNumb.append((aas[n][0], aas[n][1], posNumb))#aas[n][2]))
-            posNumb +=1 # real positions in Refseq (codons[n][0]) do increment
-    return insertions, codonsNumb, aasNumb
+            posNumb += 1 # real positions in Refseq (codons[n][0]) do increment
 
+    return insertions, codonsNumb, aasNumb
 
 
 def translation_of_ambiguous_dna(seq):
@@ -233,8 +249,8 @@ def translation_of_ambiguous_dna(seq):
         if codonSeq not in aa: # two dif triplets for the same codon 
             aa.append(str(codonSeq))
     aaSet = '/'.join(aa)
-    return aaSet
 
+    return aaSet
 
 
 def scan_mutations(codonsNumb, aasNumb, refseqid): 
@@ -257,7 +273,7 @@ def scan_mutations(codonsNumb, aasNumb, refseqid):
                     'X65257.1_Geno_D_surface':{
                                 118:['T','V','A'], 122:['R','I','K'],
                                 125:['T','M'], 127:['P','T'], 
-                                128:['A','V'], 207:['S','N','R'], # X DOESNT WORK as single letter
+                                128:['A','V'], 207:['S','N','R'], 
                                 224:['V','A']},
                     'X75657.1_Geno_E_surface':{
                                 3:['N','G','S'], 49:['L','P'], 
@@ -317,66 +333,194 @@ def scan_mutations(codonsNumb, aasNumb, refseqid):
     for n in range(len(aasNumb)):
         pos =aasNumb[n][2]
         if aasNumb[n][0] != aasNumb[n][1]:
+
             if refseqid in wildtype_aas:
-                if (pos) in wildtype_aas[refseqid]:
+                if pos in wildtype_aas[refseqid]:
+
                     if aasNumb[n][1] == 'X':
                         aas = translation_of_ambiguous_dna(codonsNumb[n][1])
                         mutations.append(f'{aasNumb[n][0]}{str(pos)}{aas}')
+                    elif aasNumb[n][1] == '-':
+                         mutations.append(f'deletion of {aasNumb[n][0]}{str(pos)}')
                     else:
                         if aasNumb[n][1] not in wildtype_aas[refseqid][pos]:
                             mutations.append(f'{aasNumb[n][0]}{str(pos)}{aasNumb[n][1]}')
+                
+                #pos not in wildtype_aas but ambiguous nt, or gaps... 
                 elif aasNumb[n][1] == 'X':
                     aas = translation_of_ambiguous_dna(codonsNumb[n][1])
-                    mutations.append(f'{aasNumb[n][0]}{str(pos)}{aas}') #ambiguous nt 
+                    mutations.append(f'{aasNumb[n][0]}{str(pos)}{aas}') 
+
                 elif aasNumb[n][1] == '-':
                     mutations.append(f'deletion of {aasNumb[n][0]}{str(pos)}')#)deletion')
+
                 else:
                     mutations.append(f'{aasNumb[n][0]}{str(pos)}{aasNumb[n][1]}')
-            else: # this  works for Genotypes G, J, I 
+            
+            else: # this  works for Genotypes G, J, I, not positions established 
                 if aasNumb[n][1] == 'X':
                         aas = translation_of_ambiguous_dna(codonsNumb[n][1])
                         mutations.append(f'{aasNumb[n][0]}{str(pos)}{aas}')
+
                 elif aasNumb[n][1] == '-':
                     mutations.append(f'deletion of {aasNumb[n][0]}{str(pos)}')#)deletion')
+
                 else:
                     mutations.append(f'{aasNumb[n][0]}{str(pos)}{aasNumb[n][1]}')
-                
-        if pos == 269:
+
+        # Position 269 for some refseqs is I, correction with this     
+        elif pos == 269:
                if aasNumb[n][1] != 'L':
                    mutations.append(f'L{str(pos)}{aasNumb[n][1]}')
     return mutations
     
 
 
-"""
-# resistance mutations Polymerase
+            
+            #### RESISTANCE POSITIONS - POLYMERASE ####
+            #    Tenofovir : S106C, H126Y, D134E, M204I/V, L269I (combination)
+            #    Entecavir : I169T
+            #    Replication: V173L (IN COMb L180M, M204V/I)
+            #    Lamivudine/Emtricitabine: L180M
+            #    Lamivudine/Adefovir: A181V/T
+            #    Adefovir/Lamivudine/Emtricitabine: A181S
+            #    Entecavir: T184G/S/I/L/F/C/A/M (IN COMb L180M, M204V/I)
+            #    Tenofovir: A194T (especially when combined with L180M & M204V/I)
+            #    Tenofovir: A200V (in the presence of L180M, T184L and M204V)
+            #    Entecavir: S202I/G/C (in the presence of M204V/I ± L180M. )
+            #    Lamivudine, Emtricitabine, Telbivudine, Entecavir: M204V/I
+            #    Adefovir: N236T
+            #    Entecavir: M250V/I/L  in the presence of M204V/I & L180M.
 
-Tenofovir : S106C, H126Y, D134E, M204I/V, L269I (combination)
-Entecavir : I169T
-Replication: V173L (IN COMb L180M, M204V/I)
-Lamivudine/Emtricitabine: L180M
-Lamivudine/Adefovir: A181V/T
-Adefovir/Lamivudine/Emtricitabine: A181S
-Entecavir: T184G/S/I/L/F/C/A/M (IN COMb L180M, M204V/I)
-Tenofovir: A194T (especially when combined with L180M & M204V/I)
-Tenofovir: A200V (in the presence of L180M, T184L and M204V)
-Entecavir: S202I/G/C (in the presence of M204V/I ± L180M. )
-Lamivudine, Emtricitabine, Telbivudine, Entecavir: M204V/I
-Adefovir: N236T
-Entecavir: M250V/I/L  in the presence of M204V/I & L180M.
 
-No conflicts with Genotypes G,H,I and J
+def error_log(path_to_run, run_name, not_labelled_seqs):
 
-#Surface:
-codons 120-150
+    analysis_date = date.today().strftime("%b-%d-%Y")  
+    log_name = path_to_run.joinpath(
+                    f'{run_name}_hbvma_v{__version__}_log_ERROR.txt')
+    with open(log_name, 'w') as log:
+        info = f'''
+--------------------------------------------------------------------------
+    HBV MUTATIONAL ANALYSIS v{__version__} - RUN {run_name} ERROR LOG       {analysis_date}
+--------------------------------------------------------------------------
+The following FASTA sequences were NOT LABELLED with xc or sp 
 
-#Precore
-Insertions, deletions, frameshift , M1, stop codons
+{', '.join(not_labelled_seqs)}
 
-#Xregion
-K130M and V131I
 
-dictionary = {106}
- 
+,which is REQUIRED to identify the amplicons for x region/core
+or surface/polymerase, respectively, and perform the analysis. 
 
-"""
+
+Please correct the FASTA header of these sequences according to the convention: 
+        
+Tube_MolisNumberAmplicon (i.e. 01_H12345678sp)
+
+and start the analysis again. 
+
+'''
+        log.write(info)
+
+    return log_name
+
+
+def summary_log(path_to_run, run_name, csv_seq_list, 
+                xc_fasta_input, sp_fasta_input, 
+                excel_file):
+
+    analysis_date = date.today().strftime("%b-%d-%Y")  
+    xc_fasta_input = sorted(xc_fasta_input)
+    sp_fasta_input = sorted(sp_fasta_input)
+    xc_ids = [n.replace('xc','') for n in xc_fasta_input]
+    sp_ids = [n.replace('sp','') for n in sp_fasta_input]
+    csv_seq_list = sorted(set(csv_seq_list))
+    xc_fasta_ids = sorted(set(xc_ids))
+    sp_fasta_ids = sorted(set(sp_ids))
+    not_in_csv =[]
+    analysed_sp_fasta = []
+    analysed_xc_fasta = []
+    #not_analysed_fasta = []
+    #for f in all_fasta:
+    #    if f not in xc_fasta_input and f not in sp_fasta_input:
+    #        not_analysed_fasta.append(f)
+
+    for spname in sp_fasta_ids:
+        if spname in csv_seq_list:
+            analysed_sp_fasta.append(spname)
+        if spname not in csv_seq_list and spname not in not_in_csv:
+            not_in_csv.append(spname)
+
+    for xcname in xc_fasta_ids:
+        if xcname in csv_seq_list:
+            analysed_xc_fasta.append(xcname)
+        if xcname not in csv_seq_list and spname not in not_in_csv:
+            not_in_csv.append(xcname)
+
+    log_name = path_to_run.joinpath(f'{run_name}_hbvma_v{__version__}_log.txt')
+    with open(log_name, 'w') as log:
+        info = f'''
+--------------------------------------------------------------------------
+    HBV MUTATIONAL ANALYSIS v{__version__} - RUN {run_name} LOG         {analysis_date}
+--------------------------------------------------------------------------
+
+--- INPUT ----------------------------------------------------------------
+
+The CSV file contained the following list of samples (and their genotypes if available):
+
+
+{', '.join(csv_seq_list)}
+
+
+The following FASTA files were provided for the analysis of 
+XC amplicons:
+
+
+{', '.join(xc_fasta_input)}
+
+
+and 
+
+SP amplicons:
+
+
+{', '.join(sp_fasta_input)}
+
+
+--- OUTPUT ---------------------------------------------------------------
+
+The folowing samples were ANALYSED for 
+
+X REGION and PRECORE:
+
+
+{', '.join(analysed_xc_fasta)} 
+
+
+and 
+
+for SURFACE and POLYMERASE (RT domain):
+
+
+{', '.join(analysed_sp_fasta)}
+
+
+and the results have been recorded in {excel_file}. 
+
+
+
+<<< WARNING >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+No record was found in the CSV file for the samples/sequences 
+
+{', '.join(not_in_csv)}
+
+so they were EXCLUDED from the analysis. 
+
+Check for potential typos, confirm that the sequences belong to the current run, 
+confirm the the tube number in the sequence ID uses the same notation as in the 
+csv file (i.e 01 is different to 1), etc...  
+
+'''
+        log.write(info)
+
+    return log_name
